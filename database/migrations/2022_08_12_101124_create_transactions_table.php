@@ -17,8 +17,10 @@ class CreateTransactionsTable extends Migration
             $table->id();
             $table->text('uuid');
             $table->text('name');
-            $table->bigInteger('user_id');
-            $table->bigInteger('product_id');
+            $table->UnsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->UnsignedBigInteger('product_id');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->integer('amount');
             $table->integer('tax');
             $table->integer('admin_fee');
@@ -26,6 +28,7 @@ class CreateTransactionsTable extends Migration
             $table->timestamp('created_at');
             $table->timestamp('updated_at');
             $table->timestamp('deleted_at')->nullable();
+
         });
     }
 
